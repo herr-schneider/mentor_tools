@@ -1,8 +1,10 @@
-package vision.students;
+package vision.registration;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vision.students.Student;
+import vision.students.StudentStatus;
 import vision.training.*;
 
 import javax.persistence.*;
@@ -25,5 +27,9 @@ public class Registration {
     @OneToOne
     private TrainingClass trainingClass;
 
-
+    public Registration(Student student, StudentStatus status, TrainingClass trainingClass) {
+        this.student = student;
+        this.status = status;
+        this.trainingClass = trainingClass;
+    }
 }

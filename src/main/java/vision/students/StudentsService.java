@@ -3,6 +3,9 @@ package vision.students;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import vision.registration.Registration;
+import vision.registration.RegistrationRepo;
+import vision.registration.RegistrationTrainingCommand;
 import vision.training.TrainingClass;
 import vision.training.TrainingClassDto;
 import vision.training.TrainingClassRepo;
@@ -15,10 +18,16 @@ public class StudentsService {
 
     private StudentRepo studentRepo;
 
+    private RegistrationRepo registrationRepo;
+
+    private TrainingClassRepo trainingClassRepo;
+
     private ModelMapper modelMapper;
 
-    public StudentsService(StudentRepo studentRepoRepo, ModelMapper modelMapper) {
-        this.studentRepo = studentRepoRepo;
+    public StudentsService(StudentRepo studentRepo, RegistrationRepo registrationRepo, TrainingClassRepo trainingClassRepo, ModelMapper modelMapper) {
+        this.studentRepo = studentRepo;
+        this.registrationRepo = registrationRepo;
+        this.trainingClassRepo = trainingClassRepo;
         this.modelMapper = modelMapper;
     }
 
@@ -55,5 +64,14 @@ public class StudentsService {
 
     public void delAllStudent(){
         studentRepo.deleteAll();
+    }
+
+    public StudentDto registration(long id, RegistrationTrainingCommand command) {
+        TrainingClass trainingClass = trainingClassRepo.findById(command.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Training Class not found"));
+        Student student = studentRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Student Class not found"));
+        registrationRepo.save(new Registration(student, StudentStatus.ACTIVE, trainingClass));
+        return modelMapper.map(student, StudentDto.class);
     }
 }

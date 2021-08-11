@@ -10,10 +10,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
-import vision.syllabusses.CreateSylabussCommand;
+import vision.registration.RegistrationStudentCommand;
 import vision.syllabusses.SylabussService;
 import vision.syllabusses.SyllabussDto;
-//import org.zalando.problem.violations.Violation;
+
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -76,6 +76,18 @@ public class TrainingClassController {
     public ResponseEntity updateTraining(@PathVariable("id") long id, @Valid @RequestBody UpdateTrainingClassCommand command) {
         try {
             return ResponseEntity.ok(trainingClassService.update(id, command));
+        } catch (IllegalArgumentException iae) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/registrations")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "A student can be registration", description = "")
+    @ApiResponse(responseCode = "404", description = "Training Classes not found")
+    public ResponseEntity registratingTraining(@PathVariable("id") long id, @Valid @RequestBody RegistrationStudentCommand command) {
+        try {
+            return ResponseEntity.ok(trainingClassService.registration(id, command));
         } catch (IllegalArgumentException iae) {
             return ResponseEntity.notFound().build();
         }

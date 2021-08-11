@@ -2,6 +2,8 @@ package vision.students;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vision.registration.Registration;
+
 import javax.persistence.*;
 
 @Entity

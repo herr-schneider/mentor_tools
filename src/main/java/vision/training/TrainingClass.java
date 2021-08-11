@@ -3,7 +3,7 @@ package vision.training;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import vision.students.Registration;
+import vision.registration.Registration;
 import vision.syllabusses.Syllabuss;
 
 import javax.persistence.*;
