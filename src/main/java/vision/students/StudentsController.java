@@ -66,7 +66,7 @@ public class StudentsController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}/registration")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "A student can be registration", description = "")
     @ApiResponse(responseCode = "404", description = "Training Classes not found")

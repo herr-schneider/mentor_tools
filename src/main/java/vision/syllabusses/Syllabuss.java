@@ -7,7 +7,7 @@ import vision.training.TrainingClass;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import vision.module.Module;
 import static javax.persistence.CascadeType.*;
 
 @Entity
@@ -26,6 +26,12 @@ public class Syllabuss {
     //@OneToMany(mappedBy="syllabus", orphanRemoval="true")
     @OneToMany(cascade = {PERSIST, REMOVE}, mappedBy = "syllabus")
     private List<TrainingClass> trainingClasses;
+
+    @ManyToMany
+    @JoinTable(name = "SYL_MOD",
+            joinColumns = @JoinColumn(name = "syl_id"),
+            inverseJoinColumns = @JoinColumn(name = "mod_id"))
+    public List<Module> modules;
 
     public Syllabuss(long id, String name) {
         this.id = id;
