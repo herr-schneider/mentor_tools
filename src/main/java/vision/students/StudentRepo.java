@@ -1,0 +1,9 @@
+package vision.students;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import vision.training.TrainingClass;
+
+@Repository
+public interface StudentRepo extends JpaRepository<Student, Long> {}
